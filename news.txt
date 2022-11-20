@@ -1,5 +1,8 @@
 SnS news
 
+20.11.2022
+    SnS will not be a clone of Tank Recon 3D. I'm thinking of
+    making a proper engine out of SnS source.
 
 23.09.2022
     SnS is now a prototype and will be transformed into another game.
