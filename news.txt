@@ -2,7 +2,7 @@ SnS news
 
 24.03.2023
     I'm having big holidays at the moment and I decided to continue developing SnS.
-    And, to make more people intrested, SnS becomes open source!
+    And, to make more people intrested, SnS becomes opensource!
 
 04.12.2022
     I have finally decided that SnS will be a game engine.
