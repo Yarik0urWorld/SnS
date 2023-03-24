@@ -1,7 +1,7 @@
 SnS news
 
 24.03.2023
-    I'm having big holidays at the moment and I decided to continue developing SnS.
+    I'm having big holidays at the moment and I have decided to continue developing SnS.
     And, to make more people intrested, SnS becomes opensource!
 
 04.12.2022
