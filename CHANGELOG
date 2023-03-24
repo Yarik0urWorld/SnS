@@ -1,0 +1,13 @@
+0.3 (4 Dec 22):
+    + Added models; improved perfomance (that's a huge change)
+    . Fixed bug where after restart timer goes crazy
+
+0.2.1 (19 Nov 22):
+    . Fixed bug where 3D objects overlay debug text
+    + Added cross in center of the screen
+    + On end of the game, user can now press R for restart
+    . Replaced "green enemy" with "green gas" in instructions
+    . Cenralized end text
+
+0.2 splitted code (3 Nov 22):
+    + Splitted one main.c to lots of files
