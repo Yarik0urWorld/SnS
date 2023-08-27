@@ -118,10 +118,9 @@ void writeSphere(FILE *f, float r, int lats, int longs) {
 // Thanks https://stackoverflow.com/questions/31670939/techniques-to-draw-a-solid-transparent-cone
 // first time when the question itself (not the answers) helps
 void writeCylinder(FILE *f, float bottom, float top, float height, uint16_t slices) {
-    float increment = 360.0f / slices;
+    float increment = 360.0f / slices; // TODO: fix!!!!!!!!!!
     writeBegin(f, "GL_TRIANGLE_STRIP");
-    for (float ang = 0; ang <= 360; ang += increment)
-    {
+    for (float ang = 0; ang <= 360; ang += increment) {
         writeVertex(f, bottom*cos((ang*M_PI)/180), bottom*sin((ang*M_PI)/180), 0.0f);
         writeVertex(f, top*cos((ang*M_PI)/180), top*sin((ang*M_PI)/180), height);
     }

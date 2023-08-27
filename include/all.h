@@ -4,7 +4,6 @@
 #include "objs/bullet.h"
 #include "objs/snowman.h"
 #include "vars.h"
-//#include "assets.h"
 #include "utils.h"
 #include "defs.h"
 #include "cfg.h"
@@ -13,6 +12,9 @@
 #include "appearance.h"
 #include "bullet_t.h"
 #include "models.h"
+#include "models_pregen.h"
+#include "assets/obj_loader.h"
+#include "logs.h"
 
 // and for some GL headers
 #include <GL/gl.h>

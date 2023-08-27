@@ -123,7 +123,26 @@ const unsigned char *getEndText(S_uint32_t endType) {
     return &buf[0];
 }
 
+_Bool endsWith(const char *string, const char *suffix) {
+    size_t str_size = strlen(string);
+    size_t suffix_size = strlen(suffix);
+    
+    if (str_size < suffix_size) return 0;
+    
+    return strncmp(string + str_size - suffix_size, suffix, suffix_size) == 0;
+}
+
 void resetEverything() {
+    DynaSBF_degree = 1;
+	stableFPS = 0;
+	stableFPSCounter = 0;
+	lastStableFPSUpdate = 0;
+	quality = 1;
+    renderDistance = 50.0f;
+    restartGame();
+}
+
+void restartGame() {
     // vars copypasted from 0.2-legacy main.c
 	angle = 0.0;
 	lx = 0.0f; lz = -1.0f;
@@ -136,14 +155,14 @@ void resetEverything() {
 	// _Bool textureLoaded = 0;
 	// GLuint texture;
 	t_begin = gettime(); t_end = 0; frame_begin = 0; tpf = 0.16f;
-	DynaSBF_degree = 1;
-	stableFPS = 0;
-	stableFPSCounter = 0;
-	lastStableFPSUpdate = 0;
+	//~ DynaSBF_degree = 1;
+	//~ stableFPS = 0;
+	//~ stableFPSCounter = 0;
+	//~ lastStableFPSUpdate = 0;
 	end = 0;
-	quality = 1;
+	//~ quality = 1;
 	snowmenLeft = SNOWMAN_MATRIX_SIZE_X * SNOWMAN_MATRIX_SIZE_Z;
-	renderDistance = 50.0f;
+	//~ renderDistance = 50.0f;
 	
 	srand(time(NULL));
     resetBullet();

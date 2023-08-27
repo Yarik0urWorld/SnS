@@ -81,7 +81,7 @@ void pressNormalKey(unsigned char key, int x, int y) {
 #endif
         case 'r':
 			if (end) {
-				resetEverything();
+				restartGame();
 			}
     }
 }

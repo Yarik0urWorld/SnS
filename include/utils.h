@@ -15,6 +15,8 @@ inline float squaref(float n) {
     return n * n;
 }
 void checkError_(const char*, int);
+void restartGame();
 void resetEverything();
+_Bool endsWith(const char*, const char*);
 
 #endif

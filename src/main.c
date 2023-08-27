@@ -1,6 +1,9 @@
 #include <time.h>
+#include <stdio.h>
 
 #include "all.h"
+
+double t_global_begin;
 
 #ifdef _WIN32
 int WinMain(HINSTANCE a, HINSTANCE b, char *c, int d)
@@ -8,17 +11,16 @@ int WinMain(HINSTANCE a, HINSTANCE b, char *c, int d)
 int main()
 #endif
 {
+	t_global_begin = gettime();
     bin = malloc(8);
 	char **argv = (char **)malloc(sizeof(char *));
 	*argv = (char *)malloc(sizeof(char));
 	**argv = '\0';
 	int argc = 1;
+	logfile = stderr;
 
-    srand(time(NULL));
-    resetBullet();
-    resetSnowmanMatrix();
-    resetEnemyPhys();
-    fixPosition();
+    resetEverything();
+	loadModel("sample.obj");
 
 	glutInit(&argc, argv);
 	glutInitDisplayMode(GLUT_DEPTH | GLUT_DOUBLE | GLUT_RGBA);
@@ -41,8 +43,10 @@ int main()
     t_begin = gettime();
 
 	glEnable(GL_DEPTH_TEST);
- 	// glEnable(GL_TEXTURE_2D);
-        
+ 	//~ glEnable(GL_TEXTURE_2D);
+    
+    logMessage(LOGLEVEL_INFO, "Game initalized successfully!");
+    
 	glutMainLoop();
  
 	return 1;

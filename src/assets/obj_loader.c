@@ -6,42 +6,22 @@
 #include <stdlib.h>
 #include <inttypes.h>
 
-//~ #include "vars.h"
-#define PACK
+#include "all.h"
 
-#define SCAN_VERICES 10
-#define SCAN_VERICES_STRING "%d %d %d %d %d %d %d %d %d %d"
-#define SCAN_VERICES_ARRAY_ITEMS(arr) arr[0], arr[1], arr[2], arr[3], arr[4], arr[5], arr[6], arr[7], arr[8], arr[9]
-
-typedef struct PACK _vertex {
-	float x, y, z;
-} vertex_t;
-
-typedef struct PACK _face {
-	uint8_t count;
-	vertex_t *vertices;
-} face_t;
-
-typedef struct PACK _model {
-	uint8_t face_count;
-	face_t *faces;
-	//~ GLuint texture;
-} model_t;
-
-model_t loadObj(const char *filename) {
+model_t *loadObj(const char *filename) {
 	ssize_t read;
 	size_t len = 0;
 	char *line = NULL;
 	char *comment_sym = NULL;
     float x = NAN, y = NAN, z = NAN;
     int scan_vertices_array[SCAN_VERICES];
-    size_t vertices_scanned;
+    size_t vertices_scanned, vcnt = 0, fcnt = 0;
     uint32_t v_count = 0, vt_count = 0, f_count = 0;
     uint32_t errors = 0;
     
     vertex_t *vertices;
-    face_t *faces;
-	model_t r;
+    glprimitive_t *glps;
+	model_t *r;
     
 	FILE *f = fopen(filename, "r");
 	
@@ -72,6 +52,15 @@ model_t loadObj(const char *filename) {
         return r;
     }
     
+    if (f_count > 0) {
+        glps = (glprimitive_t *)malloc(v_count * sizeof(glprimitive_t));
+    } else {
+        printf("Error: There must be 1 or more face.\n");
+        return r;
+    }
+    
+    r = (model_t *)malloc(sizeof(model_t));
+    
     for (size_t i = 0; i < SCAN_VERICES; i++) {
         scan_vertices_array[i] = -1;
     }
@@ -91,6 +80,10 @@ model_t loadObj(const char *filename) {
                         printf("Basic vertice\n");
                         sscanf(line + 2, "%f %f %f", &x, &y, &z);
                         printf("Vertice x=%f y=%f z=%f\n", x, y, z);
+                        (vertices + vcnt)->x = x;
+                        (vertices + vcnt)->y = y;
+                        (vertices + vcnt)->z = z;
+                        vcnt++;
                         break;
                     case 't':
                         printf("Texture vertice\n");
@@ -105,11 +98,22 @@ model_t loadObj(const char *filename) {
                 break;
             case 'f':
                 printf("Face\n");
-                sscanf(line + 2, SCAN_VERICES_STRING, SCAN_VERICES_ARRAY_ITEMS(scan_vertices_array));
+                sscanf(line + 2, SCAN_VERICES_STRING, SCAN_VERICES_ARRAY_ITEMS_PTR(scan_vertices_array));
                 for (vertices_scanned = 0; vertices_scanned < SCAN_VERICES; vertices_scanned++) {
                     if (scan_vertices_array[vertices_scanned] == -1) break;
                 }
-                
+                printf("%lu vertices: ", vertices_scanned);
+                for (int i = 0; i < vertices_scanned; i++) {
+                    printf("%d ", scan_vertices_array[i]);
+                }
+                printf("\n");
+                (glps + fcnt)->vertex_count = vertices_scanned;
+                (glps + fcnt)->vertices = (vertex_t *)malloc(vertices_scanned * sizeof(vertex_t));
+                (glps + fcnt)->type = GL_POLYGON;
+                for (int i = 0; i < vertices_scanned; i++) {
+                    *((glps + fcnt)->vertices + i) = *(vertices + scan_vertices_array[i] - 1);
+                }
+                fcnt++;
                 break;
             case '\0':
             case ' ':
@@ -125,15 +129,19 @@ model_t loadObj(const char *filename) {
 	}
 	fflush(stdout);
 	
+    free(vertices);
+    r->glp_count = f_count;
+    r->glps = glps;
+    
     if (errors) {
         printf("Found %d errors in scanned file!", errors);
     }
     
-	return r; // for now
+	return r;
 }
 
 
-// Main here is for testing
-int main() {
-	loadObj("sample.obj");
-}
+//~ // Main here is for testing
+//~ int main() {
+	//~ loadObj("sample.obj");
+//~ }

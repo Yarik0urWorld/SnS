@@ -1,17 +1,17 @@
 SnS news
 
-24.03.2023
+2023.03.24
     I'm having big holidays at the moment and I have decided to continue developing SnS.
     And, to make more people intrested, SnS becomes opensource!
 
-04.12.2022
+2022.12.04
     I have finally decided that SnS will be a game engine.
     But, still strange and unusual...
 
-20.11.2022
+2022.11.20
     SnS will not be a clone of Tank Recon 3D. I'm thinking of
     making a proper engine out of SnS source.
 
-23.09.2022
+2022.09.23
     SnS is now a prototype and will be transformed into another game.
     It will be a clone of Tank Recon 3D (see https://lonedwarfgames.com)

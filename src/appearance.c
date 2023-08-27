@@ -72,7 +72,7 @@ void renderScene() {
         drawString(&buf[0], -1.0f, -0.5f);
         snprintf(&buf[0], BUF_SZ, "When game starts, try to run away.");
         drawString(&buf[0], -1.0f, -0.7f);
-        snprintf(&buf[0], BUF_SZ, "Your target - destroy all snowmen.");
+        snprintf(&buf[0], BUF_SZ, "Your target is to destroy all snowmen.");
         drawString(&buf[0], -1.0f, -0.8f);
 
     } else {

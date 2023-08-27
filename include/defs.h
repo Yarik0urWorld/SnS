@@ -71,7 +71,22 @@
 #define FONT GLUT_BITMAP_8_BY_13
 #define BUF_SZ 256
 #define T_EXIT_AFTER_WIN 10
-#define VERSION "0.3"      //
+#define VERSION "0.3.1-dev230731"      //
+
+// Models
+#define MODEL_COUNT 1000
+
+// Logs
+#define LOGLEVEL_FATAL 0
+#define LOGLEVEL_ERROR 1
+#define LOGLEVEL_WARN  2
+#define LOGLEVEL_INFO  3
+#define LOGLEVEL_DEBUG 4
+
+// see "man ls" for example for more info
+#define LOGCOLOR_ALWAYS 0
+#define LOGCOLOR_NEVER  1
+#define LOGCOLOR_AUTO   2
 
 #if defined(WINDOWS1251) && defined(_WIN32)
 #	 define _1251
@@ -90,7 +105,8 @@
 #    define PACK
 #endif
 
-#define checkError() checkError_(__FILE__, __LINE__) 
+#define checkError() checkError_(__FILE__, __LINE__)
+#define logMessage(lvl, str) logMessage_(__FILE__, __LINE__, lvl, str) 
 #define RADTODEG(x) ((x) * 57.29577951308232)
 
 #endif
