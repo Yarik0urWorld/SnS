@@ -71,7 +71,7 @@
 #define FONT GLUT_BITMAP_8_BY_13
 #define BUF_SZ 256
 #define T_EXIT_AFTER_WIN 10
-#define VERSION "0.3.1-dev230731"      //
+#define VERSION "0.3.1-dev231009"      //
 
 // Models
 #define MODEL_COUNT 1000
@@ -87,6 +87,9 @@
 #define LOGCOLOR_ALWAYS 0
 #define LOGCOLOR_NEVER  1
 #define LOGCOLOR_AUTO   2
+
+// Mouse
+#define POINTER_BORDER_WIDTH 50
 
 #if defined(WINDOWS1251) && defined(_WIN32)
 #	 define _1251

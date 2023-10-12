@@ -55,7 +55,7 @@ extern _Bool helpOpened;
 //~ extern GLuint texture;
 extern double t_global_begin, t_begin, t_end, frame_begin, tpf;
 extern unsigned char buf[BUF_SZ];
-extern int width, height;
+extern int width, height, last_x, last_y;
 extern S_uint32_t DynaSBF_degree;
 extern void *bin;                      // IF killer
 extern S_uint32_t stableFPS;

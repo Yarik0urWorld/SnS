@@ -4,6 +4,7 @@
 #include <inttypes.h>
 
 #include "defs.h"
+#include "vars.h"
 
 FILE *openModelFile(const char *fname);
 void closeModelFile(FILE *f);
@@ -30,7 +31,7 @@ FILE *openModelFile(const char *fname) {
 	return f;
 }
 
-// For close handling (in furture?)
+// For close handling (in future?)
 void closeModelFile(FILE *f) {
 	fclose(f);
 }
@@ -86,7 +87,7 @@ void writeVertex(FILE *f, float x, float y, float z) {
 }
 
 // Thanks http://www.cburch.com/cs/490/sched/feb8/
-// Carl Burch is a good person ;)
+// Carl Burch is a good person ;) Logisim 1love
 void writeSphere(FILE *f, float r, int lats, int longs) {
     int i, j;
     for(i = 0; i <= lats; i++) {
@@ -98,7 +99,6 @@ void writeSphere(FILE *f, float r, int lats, int longs) {
         float z1 = sin(lat1);
         float zr1 = cos(lat1);
     
-        writeBegin(f, "GL_QUAD_STRIP");
         for(j = 0; j <= longs; j++) {
             float lng = 2 * M_PI * (float) (j - 1) / longs;
             float x = cos(lng);
@@ -111,22 +111,88 @@ void writeSphere(FILE *f, float r, int lats, int longs) {
             writeVertex(f, x * zr0 * r, y * zr0 * r, z0 * r);
             writeVertex(f, x * zr1 * r, y * zr1 * r, z1 * r);
         }
-        endBegin(f);
+    }
+}
+/*
+model_t *createSphere(float r, int lats, int longs, color_t color) {
+	model_t *model = (model_t *)malloc(sizeof(model_t));
+	
+	model->glp_count = lats;
+	model->glps = (glprimitive_t *)malloc(sizeof(glprimitive_t) * (lats + 1));
+	
+    int i, j;
+    for(i = 0; i <= lats; i++) {
+        float lat0 = M_PI * (-0.5 + (float) (i - 1) / lats);
+        float z0  = sin(lat0);
+        float zr0 =  cos(lat0);
+    
+        float lat1 = M_PI * (-0.5 + (float) i / lats);
+        float z1 = sin(lat1);
+        float zr1 = cos(lat1);
+		
+		// initialize glprimitive
+		(model->glps + i)->type = GL_QUAD_STRIP;
+		(model->glps + i)->vertex_count = (longs + 1) * 2;
+		(model->glps + i)->vertices = (vertex_t *)malloc(sizeof(vertex_t) * (model->glps + i)->vertex_count);
+		(model->glps + i)->color = color;
+		
+        for(j = 0; j <= longs; j++) {
+            float lng = 2 * M_PI * (float) (j - 1) / longs;
+            float x = cos(lng);
+            float y = sin(lng);
+
+            //~ glNormal3f(x * zr0, y * zr0, z0);
+            //~ glVertex3f(x * zr0, y * zr0, z0);
+            //~ glNormal3f(x * zr1, y * zr1, z1);
+            //~ glVertex3f(x * zr1, y * zr1, z1);
+            *((model->glps + i)->vertices + j*2) = {x * zr0 * r, y * zr0 * r, z0 * r};
+            *((model->glps + i)->vertices + j*2 + 1) = {x * zr1 * r, y * zr1 * r, z1 * r};
+        }
     }
 }
 
 // Thanks https://stackoverflow.com/questions/31670939/techniques-to-draw-a-solid-transparent-cone
 // first time when the question itself (not the answers) helps
-void writeCylinder(FILE *f, float bottom, float top, float height, uint16_t slices) {
-    float increment = 360.0f / slices; // TODO: fix!!!!!!!!!!
+void writeCylinder(FILE *f, float bottom, float top, float height, S_uint32_t slices) {
+    float increment = 360.0f / slices;
+    float ang = 0.0;
+	S_uint32_t vertice_pairs = slices + 1;
     writeBegin(f, "GL_TRIANGLE_STRIP");
-    for (float ang = 0; ang <= 360; ang += increment) {
+    for (S_uint32_t i; i < vetrice_pairs; i++) {
         writeVertex(f, bottom*cos((ang*M_PI)/180), bottom*sin((ang*M_PI)/180), 0.0f);
         writeVertex(f, top*cos((ang*M_PI)/180), top*sin((ang*M_PI)/180), height);
+        ang += increment
     }
     endBegin(f);
 }
 
+model_t *createCylinder(float bottom, float top, float height, S_uint32_t slices, color_t color) {
+	model_t *model = (model_t *)malloc(sizeof(model_t));
+	glprimitive_t *glp = (glprimitive_t *)malloc(sizeof(glprimitive_t));
+	
+    float increment = 360.0f / slices;
+    float ang = 0.0;
+
+	model->glp_count = 1;
+	model->glps = glp;
+	
+	glp->type = GL_TRIANGLE_STRIP;
+	glp->vertex_count = (slices + 1) * 2;
+	glp->vertices = (vertex_t *)malloc(sizeof(vertex_t) * glp->vertex_count);
+	glp->color = color;
+	
+    for (S_uint32_t i; i < glp->vertex_count; i++) {
+        *(glp->vertices + i) = {bottom*cos((ang*M_PI)/180), bottom*sin((ang*M_PI)/180), 0.0f};
+        *(glp->vertices + ++i) = {top*cos((ang*M_PI)/180), top*sin((ang*M_PI)/180), height};
+        ang += increment;
+    }
+    
+    return model;
+}
+*/
+
+int main(){} //FIXME
+/*
 int main() {
 	FILE *f = openModelFile("../build/snowman.mdl.c");
     int quality = 1;
@@ -173,3 +239,4 @@ int main() {
     
     closeModelFile(f);
 }
+*/

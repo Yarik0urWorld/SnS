@@ -61,7 +61,8 @@ void drawOneEnemy() {
     //~ glColor3f(0.75f, 0.85f, 0.25f);
 
     //~ glutSolidSphere(ENEMY_RADIUS, 10, 10);
-    mdl_gas();
+    //~ mdl_gas();
+    drawModel(models[2]);
 }
 
 void drawAllEnemy() {

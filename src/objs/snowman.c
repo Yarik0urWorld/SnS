@@ -42,7 +42,7 @@ void drawSnowMan(long health) {
     if (health <= 0) return;
 #endif
 
- 	glColor3f(1.0f, 1.0f, 1.0f);
+ 	//~ glColor3f(1.0f, 1.0f, 1.0f);
  	
     // Snowman's body
 	//~ glTranslatef(0.0f, 0.75f, 0.0f);
@@ -51,9 +51,10 @@ void drawSnowMan(long health) {
 	drawModel(models[0]);
  	
     // Snowman's head
-	//~ glTranslatef(0.0f, 1.0f * ( ((float) health - 1) / (SNOWMAN_MAX_HP - 1) * (1 - SNOWMAN_HEAD_MIN_HEIGHT) + SNOWMAN_HEAD_MIN_HEIGHT), 0.0f); //  <====== HERE
+	glTranslatef(0.0f, 1.0f * ( ((float) health - 1) / (SNOWMAN_MAX_HP - 1) * (1 - SNOWMAN_HEAD_MIN_HEIGHT) + SNOWMAN_HEAD_MIN_HEIGHT), 0.0f); //  <====== HERE
 	//~ glutSolidSphere(0.25f, (quality + 1) * 7, (quality + 1) * 7);
 	//~ mdl_snowmanHead(); //  <====== HERE
+	drawModel(models[1]);
 	
     // Snowman's eyes
 	//~ glPushMatrix();

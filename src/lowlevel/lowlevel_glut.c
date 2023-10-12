@@ -5,6 +5,9 @@
 
 // GLUT stuff
 
+int last_x, last_y;
+_Bool warped_pointer = 0;
+
 void pressKey(int key, int xx, int yy) {
  
 	switch (key) {
@@ -115,9 +118,18 @@ void releaseNormalKey(unsigned char key, int xx, int yy) {
 
 
 // Comletely broken in GLUT (thus I'd like to use glX/wgl for framework purposes)
-//~ void passiveMotionFunc(int x, int y) {
-    //~ deltaAngle = (float)(width / 2 - x) / width * RSPEED;
-    //~ glutWarpPointer(width / 2, height / 2);
-    //~ printf("%f\n", deltaAngle);
-    //~ glutPostRedisplay();
-//~ }
+void passiveMotionFunc(int x, int y) {
+    if (!warped_pointer) {
+		deltaAngle = (float)(x - last_x)/ width * RSPEED * 100;
+		printf("%f, %d %d, %d %d, %d %d\n", deltaAngle, x, y, last_x, last_y, x - last_x, y - last_y); 
+		last_x = x;
+		last_y = y;
+	}
+    if (x < POINTER_BORDER_WIDTH || y < POINTER_BORDER_WIDTH || x > width-POINTER_BORDER_WIDTH || y > height-POINTER_BORDER_WIDTH) {
+		glutWarpPointer(width / 2, height / 2);
+		last_x = width / 2;
+		last_y = height / 2;
+		warped_pointer = 1;
+	} else warped_pointer = 0;
+    glutPostRedisplay();
+}

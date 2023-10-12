@@ -14,7 +14,7 @@ model_t *loadObj(const char *filename) {
 	char *line = NULL;
 	char *comment_sym = NULL;
     float x = NAN, y = NAN, z = NAN;
-    int scan_vertices_array[SCAN_VERICES];
+    int scan_vertices_array[SCAN_VERTICES];
     size_t vertices_scanned, vcnt = 0, fcnt = 0;
     uint32_t v_count = 0, vt_count = 0, f_count = 0;
     uint32_t errors = 0;
@@ -61,7 +61,7 @@ model_t *loadObj(const char *filename) {
     
     r = (model_t *)malloc(sizeof(model_t));
     
-    for (size_t i = 0; i < SCAN_VERICES; i++) {
+    for (size_t i = 0; i < SCAN_VERTICES; i++) {
         scan_vertices_array[i] = -1;
     }
     
@@ -98,8 +98,8 @@ model_t *loadObj(const char *filename) {
                 break;
             case 'f':
                 printf("Face\n");
-                sscanf(line + 2, SCAN_VERICES_STRING, SCAN_VERICES_ARRAY_ITEMS_PTR(scan_vertices_array));
-                for (vertices_scanned = 0; vertices_scanned < SCAN_VERICES; vertices_scanned++) {
+                sscanf(line + 2, SCAN_VERTICES_STRING, SCAN_VERTICES_ARRAY_ITEMS_PTR(scan_vertices_array));
+                for (vertices_scanned = 0; vertices_scanned < SCAN_VERTICES; vertices_scanned++) {
                     if (scan_vertices_array[vertices_scanned] == -1) break;
                 }
                 printf("%lu vertices: ", vertices_scanned);

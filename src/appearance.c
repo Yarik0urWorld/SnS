@@ -79,6 +79,7 @@ void renderScene() {
 
         computePos(deltaMove * !end * tpf);
         computeDir(deltaAngle * !end * tpf);
+        deltaAngle = 0.0f;
 
         gunLogic();
         bulletLogic(&bullet);

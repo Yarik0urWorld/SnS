@@ -21,7 +21,10 @@ int main()
 
     resetEverything();
 	loadModel("sample.obj");
-
+	
+	//FIXME
+	createModels();
+	
 	glutInit(&argc, argv);
 	glutInitDisplayMode(GLUT_DEPTH | GLUT_DOUBLE | GLUT_RGBA);
 	glutInitWindowPosition(100,100);
@@ -39,7 +42,10 @@ int main()
 	glutIgnoreKeyRepeat(1);
 	glutSpecialUpFunc(releaseKey);
     glutKeyboardUpFunc(releaseNormalKey);
-
+	
+	glutPassiveMotionFunc(passiveMotionFunc);
+	glutMotionFunc(passiveMotionFunc);
+	
     t_begin = gettime();
 
 	glEnable(GL_DEPTH_TEST);

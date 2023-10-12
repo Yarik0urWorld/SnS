@@ -10,7 +10,7 @@ ARCH=$(shell arch)
 #OBJ_FILES=gen_models.o
 
 CC=gcc
-CFLAGS+=-I"${INCLUDE_PATH}" -c -O3 -Wno-pointer-sign
+CFLAGS+=-I"${INCLUDE_PATH}" -c -O3 -Wall -Wno-pointer-sign
 # get rid of -ffast-math at first time cuz I'm afraid of it :>
 LFLAGS+=
 STATIC_LIB_PATH+=
